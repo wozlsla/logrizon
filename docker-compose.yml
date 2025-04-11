@@ -5,6 +5,8 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
     volumes:
+      # build/web → 정적 파일 위치 (볼륨 초기화용)
+      - ./frontend/build/web:/app/build/web:ro
       - frontend_web:/app/build/web
     # expose:
     #   - "80" # 내부 포트만 노출 (내부 통신용)
