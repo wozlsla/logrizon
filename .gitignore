@@ -5,3 +5,11 @@
 
 # VSCode 설정
 .vscode/
+
+# 모든 build 폴더 무시 (예: android/build, ios/build 등)
+**/build/
+
+# 예외
+!frontend/build/
+!frontend/build/web/
+!frontend/build/web/**
