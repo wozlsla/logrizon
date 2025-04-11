@@ -1,25 +1,23 @@
 name: Deploy to EC2 on main push
 
 on:
-  pull_request:
-    types: [closed]
+  push:
     branches:
       - main
 
 jobs:
   deploy:
-    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
 
     steps:
-      - name: Deploy to EC2
+      - name: Checkout Repository # GitHub Actions 실행 환경에 가져옴
+        uses: actions/checkout@v3
+
+      - name: Copy frontend build to EC2
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ubuntu
           key: ${{ secrets.EC2_SSH_KEY }}
-          script: |
-            cd ~/logrizon
-            git pull origin main
-            sudo docker-compose down
-            sudo docker-compose up --build -d
+          source: "frontend/build/web/*"
+          target: "/home/ubuntu/logrizon/frontend/build/web/"
