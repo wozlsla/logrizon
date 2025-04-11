@@ -4,6 +4,8 @@ FROM ghcr.io/cirruslabs/flutter:3.29.2 AS builder
 WORKDIR /app
 COPY . .
 
+RUN flutter precache --web
+
 RUN flutter pub get
 RUN flutter build web
 
