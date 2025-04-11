@@ -14,7 +14,7 @@ class Logrizon extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: Scaffold(appBar: AppBar(title: Text("Logrizon"))),
+      home: Scaffold(appBar: AppBar(title: Text("Logrizon dev"))),
     );
   }
 }
