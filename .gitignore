@@ -1,0 +1,7 @@
+# macOS 시스템 파일
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# VSCode 설정
+.vscode/

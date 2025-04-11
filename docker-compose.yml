@@ -1,0 +1,25 @@
+services:
+  frontend:
+    build:
+      context: ./frontend
+    container_name: flutter_web
+    expose:
+      - "80"
+    networks:
+      - logrizon_net
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx_proxy
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - "80:80"
+    depends_on:
+      - frontend
+    networks:
+      - logrizon_net
+
+networks:
+  logrizon_net:
+    driver: bridge
