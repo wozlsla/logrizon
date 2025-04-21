@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:frontend/common/utils/api.dart';
+import 'package:frontend/route/router_const.dart';
+import 'package:go_router/go_router.dart';
 import 'package:http/http.dart' as http;
 
 class NoteScreen extends StatefulWidget {
@@ -29,7 +31,7 @@ class _NoteScreenState extends State<NoteScreen> {
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(SnackBar(content: Text('노트 등록 성공~~~')));
-      Navigator.pop(context); // home으로 돌아가
+      context.go(RouteURL.noteList);
     } else {
       ScaffoldMessenger.of(
         context,
@@ -54,7 +56,10 @@ class _NoteScreenState extends State<NoteScreen> {
               decoration: InputDecoration(labelText: '내용'),
             ),
             SizedBox(height: 20),
-            ElevatedButton(onPressed: submitNote, child: Text('등록')),
+            ElevatedButton(
+              onPressed: submitNote,
+              child: Text('서버에 백엔드X. 누르지 말것!!'),
+            ),
           ],
         ),
       ),
