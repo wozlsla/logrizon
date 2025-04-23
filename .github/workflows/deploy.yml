@@ -1,4 +1,4 @@
-name: Deploy to EC2 on main push
+name: Deploy to EC2
 
 on:
   push:
@@ -10,10 +10,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repository # GitHub Actions 실행 환경에 가져옴
+      - name: Checkout Repository !!
         uses: actions/checkout@v3
 
-      - name: Copy frontend build to EC2
+      - name: Copy flutter web build to EC2
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.EC2_HOST }}
@@ -22,6 +22,5 @@ jobs:
           script: |
             cd ~/logrizon
             git pull origin main
-            sudo docker-compose version
             sudo docker-compose down
             sudo docker-compose up --build -d
