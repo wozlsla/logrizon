@@ -1,16 +1,44 @@
 # frontend
 
 A new Flutter project.
+</br>
 
-## Getting Started
+## Flows
 
-This project is a starting point for a Flutter application.
+```
+main.dart
+  └── Logrizon (App 클래스: 진입점)
+        └── MaterialApp.router(routerConfig: ...)
+              └── GoRouter(routerProvider)
+                    └── StatefulShellRoute (탭 구조)
+                          └── EntryPoint(navigationShell)
+                                ├── didChangeDependencies()
+                                │     └── navigationShell.currentIndex → tabIndexProvider에 동기화 (url)
+                                ├── ref.watch(tabIndexProvider) ← 탭 상태 읽기
+                                └── BottomNavigationBar(onTap: onTap)
+                                        └── onTap(index)
+                                              ├── ref.read(tabIndexProvider).state = index ← 탭 상태 업데이트
+                                              └── navigationShell.goBranch(index) ← 실제 화면 전환
+```
 
-A few resources to get you started if this is your first Flutter project:
+## Structure
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+```
+.
+├── main.dart
+├── providers
+├── route
+├── common
+│   ├── utils
+│   │   └── api.dart
+│   └── widgets
+│       └── bottom_nav_bar.dart
+└── views
+    ├── entrypoint
+    │   └── entrypoint.dart
+    ├── home
+    │   └── home_screen.dart
+    └── note
+        ├── note_list_screen.dart
+        └── note_screen.dart
+```

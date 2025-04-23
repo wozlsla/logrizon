@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:frontend/common/utils/api.dart';
+import 'package:frontend/common/utils/logger.dart';
 import 'package:frontend/route/router_const.dart';
 import 'package:go_router/go_router.dart';
 import 'package:http/http.dart' as http;
@@ -17,29 +18,35 @@ class NoteListScreen extends StatefulWidget {
 
 class _NoteListScreenState extends State<NoteListScreen> {
   List notes = [];
-  NoteFetchStatus status = NoteFetchStatus.loading;
+  NoteFetchStatus status = NoteFetchStatus.loading; // 초기화
 
   Future<void> fetchNotes() async {
+    List newNotes = [];
+    NoteFetchStatus newStatus;
+
     try {
       final response = await http.get(notesUrl);
 
       if (response.statusCode == 200) {
-        setState(() {
-          notes = jsonDecode(utf8.decode(response.bodyBytes));
-          status = NoteFetchStatus.success;
-        });
+        newNotes = jsonDecode(utf8.decode(response.bodyBytes));
+        newStatus = NoteFetchStatus.success;
       } else {
-        setState(() {
-          status = NoteFetchStatus.error;
-        });
-        print('노트 불러오기 실패: ${response.statusCode}');
+        newStatus = NoteFetchStatus.error;
+        logger.e('노트 불러오기 실패: ${response.statusCode}');
+        // print('노트 불러오기 실패: ${response.statusCode}');
       }
-    } catch (e) {
-      setState(() {
-        status = NoteFetchStatus.error;
-      });
-      print('예외 발생: $e');
+    } catch (e, stack) {
+      newStatus = NoteFetchStatus.error;
+      // print('예외 발생: $e');
+      logger.d('예외 발생', error: e, stackTrace: stack);
+      // logger.e('로거 e test', error: e, stackTrace: stack);
+      // logger.d('로거 d test', stackTrace: stack);
     }
+
+    setState(() {
+      notes = newNotes;
+      status = newStatus;
+    });
   }
 
   @override
@@ -58,7 +65,7 @@ class _NoteListScreenState extends State<NoteListScreen> {
       body = Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Center(child: Text('백엔드 연결 중...')),
+          Center(child: Text('백엔드 연결 중... (TEST)')),
           Center(
             child: IconButton(
               onPressed: () {
@@ -69,19 +76,21 @@ class _NoteListScreenState extends State<NoteListScreen> {
           ),
         ],
       );
-    } else if (notes.isEmpty) {
-      body = const Center(child: Text('노트 없음'));
     } else {
-      body = ListView.builder(
-        itemCount: notes.length,
-        itemBuilder: (context, index) {
-          final note = notes[index];
-          return ListTile(
-            title: Text(note['title'] ?? ''),
-            subtitle: Text(note['contents'] ?? ''),
-          );
-        },
-      );
+      if (notes.isEmpty) {
+        body = const Center(child: Text('노트 없음'));
+      } else {
+        body = ListView.builder(
+          itemCount: notes.length,
+          itemBuilder: (context, index) {
+            final note = notes[index];
+            return ListTile(
+              title: Text(note['title'] ?? ''),
+              subtitle: Text(note['contents'] ?? ''),
+            );
+          },
+        );
+      }
     }
 
     return Scaffold(body: body);

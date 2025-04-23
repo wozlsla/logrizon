@@ -14,12 +14,12 @@ class EntryPoint extends ConsumerStatefulWidget {
 }
 
 class _EntryPointState extends ConsumerState<EntryPoint> {
+  // 라우터 상태와 Provider 상태를 동기화 (현재 탭 인덱스를 Provider에 반영)
   @override
   void didChangeDependencies() {
-    // 라우터 상태와 Provider 상태를 동기화
     super.didChangeDependencies();
 
-    // URL로 접근한 경우에도 탭 인덱스를 현재 shell index로 동기화
+    // URL로 접근한 경우에도 탭 인덱스를 현재 shell index로 동기화 (초기값 0)
     ref.read(tabIndexProvider.notifier).state =
         widget.navigationShell.currentIndex;
   }
@@ -28,8 +28,9 @@ class _EntryPointState extends ConsumerState<EntryPoint> {
     // 이미 현재 선택된 탭을 또 누르면 goBranch()를 호출 X
     if (index == widget.navigationShell.currentIndex) return;
 
-    // 탭 인덱스 상태 업데이트 + 화면 전환
+    // 탭 상태 업데이트 (index: icon)
     ref.read(tabIndexProvider.notifier).state = index;
+    // 화면 전환
     widget.navigationShell.goBranch(index, initialLocation: false);
   }
 
@@ -41,7 +42,7 @@ class _EntryPointState extends ConsumerState<EntryPoint> {
       body: widget.navigationShell,
       bottomNavigationBar: BottomNavBar(
         selectedIndex: selectedIndex, // from tabIndexProvider
-        onTap: onTap,
+        onTap: onTap, // index: icon
       ),
     );
   }
