@@ -11,7 +11,7 @@ void main() async {
   GoRouter.optionURLReflectsImperativeAPIs = true;
 
   // 환경 설정 (SECRET_KEY, API_URL 등)
-  await dotenv.load();
+  await dotenv.load(fileName: '.env.prod');
 
   // logger.i('디버깅 중');
 

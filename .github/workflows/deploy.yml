@@ -4,6 +4,10 @@ on:
   push:
     branches:
       - main
+  # pull_request:
+  #   branches:
+  #     - main
+  #     - dev
 
 jobs:
   deploy:
@@ -13,7 +17,19 @@ jobs:
       - name: Checkout Repository !!
         uses: actions/checkout@v3
 
-      - name: Copy flutter web build to EC2
+      - name: Create .env file
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ubuntu
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            cd ~/logrizon/backend
+            echo "SECRET_KEY=${{ secrets.DJANGO_SECRET_KEY }}" > .env
+            echo "DEBUG=${{ secrets.DJANGO_DEBUG }}" >> .env
+            echo "ALLOWED_HOSTS=${{ secrets.DJANGO_ALLOWED_HOSTS }}" >> .env
+
+      - name: Deploy to EC2 via SSH
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.EC2_HOST }}
@@ -24,3 +40,31 @@ jobs:
             git pull origin main
             sudo docker-compose down
             sudo docker-compose up --build -d
+
+      # 이후에 healthcheck로 대체!!
+      - name: Wait for django container
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ubuntu
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            echo "⏳ Waiting for django container to be up..."
+            for i in {1..10}; do
+              if sudo docker ps | grep django; then
+                echo "✅ Django container is up!"
+                break
+              fi
+              echo "⏱️ Still waiting..."
+              sleep 3
+            done
+
+      - name: Run Django Migrations
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ubuntu
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            cd ~/logrizon
+            sudo docker exec django poetry run python manage.py migrate

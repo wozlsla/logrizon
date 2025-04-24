@@ -35,24 +35,24 @@ final routerProvider = Provider((ref) {
           StatefulShellBranch(
             routes: [
               GoRoute(
-                path: RouteURL.noteList,
-                builder: (context, state) => NoteListScreen(),
-                routes: [
-                  // 서브 라우팅 (Nested Route) - 같은 탭 내 하위 화면 구성
-                  GoRoute(
-                    path: 'create',
-                    name: RouteName.noteCreate,
-                    builder: (context, state) => NoteScreen(),
-                  ),
-                ],
+                path: RouteURL.noteCreate,
+                builder: (context, state) => NoteScreen(),
+                // routes: [
+                //   // 서브 라우팅 (Nested Route) - 같은 탭 내 하위 화면 구성
+                //   GoRoute(
+                //     path: 'create',
+                //     name: RouteName.noteList,
+                //     builder: (context, state) => NoteListScreen(),
+                //   ),
+                // ],
               ),
             ],
           ),
           StatefulShellBranch(
             routes: [
               GoRoute(
-                path: RouteURL.temp,
-                builder: (context, state) => TempScreen(),
+                path: RouteURL.noteList, // tab 라우팅 동기화 X (just test)
+                builder: (context, state) => NoteListScreen(),
               ),
             ],
           ),
