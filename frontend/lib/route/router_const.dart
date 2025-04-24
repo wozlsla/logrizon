@@ -7,7 +7,7 @@ class RouteURL {
 
 class RouteName {
   static const home = "home";
-  static const noteList = "note_list";
+  static const noteList = "note";
   static const noteCreate = "note_create";
   static const temp = "temp";
 }
