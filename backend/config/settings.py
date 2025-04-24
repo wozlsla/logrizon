@@ -65,7 +65,12 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-CORS_ALLOW_ALL_ORIGINS = True
+# CORS_ALLOW_ALL_ORIGINS = True
+
+CORS_ALLOWED_ORIGINS = [
+    "http://logrizon.im",
+    "https://logrizon.im",
+]
 
 ROOT_URLCONF = "config.urls"
 

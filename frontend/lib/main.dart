@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:frontend/common/utils/logger.dart';
+import 'package:frontend/config/env_config.dart';
 import 'package:frontend/route/router.dart';
 import 'package:go_router/go_router.dart';
 
@@ -11,7 +12,8 @@ void main() async {
   GoRouter.optionURLReflectsImperativeAPIs = true;
 
   // 환경 설정 (SECRET_KEY, API_URL 등)
-  await dotenv.load(fileName: '.env.prod');
+  // await dotenv.load();
+  await EnvConfig.loadEnv();
 
   // logger.i('디버깅 중');
 
