@@ -1,11 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:frontend/route/router_const.dart';
+import 'package:frontend/core/router/router_const.dart';
 import 'package:frontend/views/entrypoint/entrypoint.dart';
 import 'package:frontend/views/home/home_screen.dart';
-import 'package:frontend/views/note/note_list_screen.dart';
-import 'package:frontend/views/note/note_screen.dart';
-import 'package:frontend/views/note/temp_screen.dart';
+import 'package:frontend/views/profile/profile_screen.dart';
 import 'package:go_router/go_router.dart';
 
 // Flutter의 라우팅 -> Navigator (Key로 식별)
@@ -35,8 +33,10 @@ final routerProvider = Provider((ref) {
           StatefulShellBranch(
             routes: [
               GoRoute(
-                path: RouteURL.noteCreate,
-                builder: (context, state) => NoteScreen(),
+                path: '/noop', // 쓰지 않는 경로
+                builder: (context, state) => const SizedBox.shrink(), // 빈 화면
+                // path: RouteURL.noteCreate,
+                // builder: (context, state) => NoteScreen(),
                 // routes: [
                 //   // 서브 라우팅 (Nested Route) - 같은 탭 내 하위 화면 구성
                 //   GoRoute(
@@ -51,8 +51,8 @@ final routerProvider = Provider((ref) {
           StatefulShellBranch(
             routes: [
               GoRoute(
-                path: RouteURL.noteList, // tab 라우팅 동기화 X (just test)
-                builder: (context, state) => NoteListScreen(),
+                path: RouteURL.profile,
+                builder: (context, state) => ProfileScreen(),
               ),
             ],
           ),

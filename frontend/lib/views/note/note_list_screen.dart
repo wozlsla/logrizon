@@ -1,9 +1,9 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:frontend/common/utils/api.dart';
+import 'package:frontend/config/api.dart';
 import 'package:frontend/common/utils/logger.dart';
-import 'package:frontend/route/router_const.dart';
+import 'package:frontend/core/router/router_const.dart';
 import 'package:go_router/go_router.dart';
 import 'package:http/http.dart' as http;
 
@@ -69,7 +69,7 @@ class _NoteListScreenState extends State<NoteListScreen> {
           Center(
             child: IconButton(
               onPressed: () {
-                context.go(RouteURL.noteCreate);
+                // context.go(RouteURL.noteCreate);
               },
               icon: Icon(Icons.chevron_right),
             ),
