@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+// import 'package:frontend/common/widgets/form_button.dart';
 
 class WriteForm extends StatelessWidget {
   const WriteForm({
@@ -33,7 +34,25 @@ class WriteForm extends StatelessWidget {
           ),
           SizedBox(height: 20),
           Spacer(),
-          ElevatedButton(onPressed: onSubmit, child: Text('SUBMIT')),
+          ElevatedButton(
+            onPressed: onSubmit, // disabled 처리 예정
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.tealAccent[700]?.withValues(alpha: 0.6),
+              foregroundColor: Colors.white, // 텍스트 색
+              textStyle: const TextStyle(fontWeight: FontWeight.bold),
+              padding: const EdgeInsets.all(10),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(4),
+              ),
+              minimumSize: const Size(100, 40),
+            ),
+            child: Text('SUBMIT', textAlign: TextAlign.center),
+          ),
+          SizedBox(height: 8),
+          // GestureDetector(
+          //   onTap: onSubmit,
+          //   child: FormButton(disabled: false, payload: 'SUBMIT'),
+          // ),
         ],
       ),
     );

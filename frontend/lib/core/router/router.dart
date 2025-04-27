@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:frontend/core/router/router_const.dart';
 import 'package:frontend/views/entrypoint/entrypoint.dart';
 import 'package:frontend/views/home/home_screen.dart';
+import 'package:frontend/views/note/note_list_screen.dart';
 import 'package:frontend/views/profile/profile_screen.dart';
 import 'package:go_router/go_router.dart';
 
@@ -51,8 +52,10 @@ final routerProvider = Provider((ref) {
           StatefulShellBranch(
             routes: [
               GoRoute(
-                path: RouteURL.profile,
-                builder: (context, state) => ProfileScreen(),
+                path: RouteURL.note,
+                // path: RouteURL.profile,
+                builder: (context, state) => NoteListScreen(),
+                // builder: (context, state) => ProfileScreen(),
               ),
             ],
           ),

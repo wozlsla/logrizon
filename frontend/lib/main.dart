@@ -39,9 +39,8 @@ class Logrizon extends ConsumerWidget {
         useMaterial3: true,
         scaffoldBackgroundColor: Colors.white,
         textSelectionTheme: TextSelectionThemeData(
-          cursorColor: Colors.blue[800], // Color(0xFF209BC4)
-          selectionColor: Colors.blue[800]?.withValues(alpha: 0.6),
-          // selectionColor: Color(0xFF209BC4).withValues(alpha: 0.6),
+          cursorColor: Colors.cyanAccent, // Color(0xFF209BC4)
+          selectionColor: Colors.cyanAccent.withValues(alpha: 0.45),
         ),
         appBarTheme: AppBarTheme(
           backgroundColor: Colors.transparent,
@@ -54,8 +53,8 @@ class Logrizon extends ConsumerWidget {
         brightness: Brightness.dark,
         scaffoldBackgroundColor: Color(0xFF121212),
         textSelectionTheme: TextSelectionThemeData(
-          cursorColor: Color(0xFF209BC4),
-          selectionColor: Color(0xFF209BC4).withValues(alpha: 0.6),
+          cursorColor: Colors.cyanAccent,
+          selectionColor: Colors.cyanAccent.withValues(alpha: 0.45),
         ),
         appBarTheme: AppBarTheme(backgroundColor: Colors.transparent),
         bottomAppBarTheme: BottomAppBarTheme(color: Colors.grey[900]),

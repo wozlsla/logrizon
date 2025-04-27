@@ -1,11 +1,6 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:frontend/config/api.dart';
 import 'package:frontend/common/utils/logger.dart';
-import 'package:frontend/core/router/router_const.dart';
-import 'package:go_router/go_router.dart';
-import 'package:http/http.dart' as http;
+import 'package:frontend/views/note/note_service.dart';
 
 enum NoteFetchStatus { loading, success, error }
 
@@ -22,25 +17,14 @@ class _NoteListScreenState extends State<NoteListScreen> {
 
   Future<void> fetchNotes() async {
     List newNotes = [];
-    NoteFetchStatus newStatus;
+    NoteFetchStatus newStatus = NoteFetchStatus.loading;
 
     try {
-      final response = await http.get(notesUrl);
-
-      if (response.statusCode == 200) {
-        newNotes = jsonDecode(utf8.decode(response.bodyBytes));
-        newStatus = NoteFetchStatus.success;
-      } else {
-        newStatus = NoteFetchStatus.error;
-        logger.e('노트 불러오기 실패: ${response.statusCode}');
-        // print('노트 불러오기 실패: ${response.statusCode}');
-      }
+      newNotes = await NoteService.fetchNotes();
+      newStatus = NoteFetchStatus.success;
     } catch (e, stack) {
-      newStatus = NoteFetchStatus.error;
-      // print('예외 발생: $e');
       logger.d('예외 발생', error: e, stackTrace: stack);
-      // logger.e('로거 e test', error: e, stackTrace: stack);
-      // logger.d('로거 d test', stackTrace: stack);
+      newStatus = NoteFetchStatus.error;
     }
 
     setState(() {
@@ -64,35 +48,29 @@ class _NoteListScreenState extends State<NoteListScreen> {
     } else if (status == NoteFetchStatus.error) {
       body = Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Center(child: Text('백엔드 연결 중... (TEST)')),
-          Center(
-            child: IconButton(
-              onPressed: () {
-                // context.go(RouteURL.noteCreate);
-              },
-              icon: Icon(Icons.chevron_right),
-            ),
-          ),
-        ],
+        children: [Center(child: Text('서버 연결 중... (TEST)'))],
       );
     } else {
       if (notes.isEmpty) {
         body = const Center(child: Text('노트 없음'));
       } else {
-        body = ListView.builder(
+        body = ListView.separated(
+          separatorBuilder:
+              (context, index) => Divider(thickness: 0.4, indent: 20.0),
           itemCount: notes.length,
           itemBuilder: (context, index) {
             final note = notes[index];
             return ListTile(
-              title: Text(note['title'] ?? ''),
-              subtitle: Text(note['contents'] ?? ''),
+              title: Text(
+                note['contents'] ?? '',
+                style: const TextStyle(fontSize: 15, color: Colors.white),
+              ),
             );
           },
         );
       }
     }
 
-    return Scaffold(body: body);
+    return Scaffold(appBar: AppBar(title: Text('Notes')), body: body);
   }
 }

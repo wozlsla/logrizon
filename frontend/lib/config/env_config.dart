@@ -37,6 +37,15 @@ class EnvConfig {
     /// dart-define으로 전달된 값이 있으면 그 값을 우선적으로 사용
     return const String.fromEnvironment('API_URL', defaultValue: '').isNotEmpty
         ? const String.fromEnvironment('API_URL')
-        : dotenv.env['API_URL'] ?? 'https://api.default.com'; // 수정
+        : dotenv.env['API_URL'] ?? 'https://localhost:8000';
+  }
+
+  static String get fastApiUrl {
+    return const String.fromEnvironment(
+          'FASTAPI_URL',
+          defaultValue: '',
+        ).isNotEmpty
+        ? const String.fromEnvironment('FASTAPI_URL')
+        : dotenv.env['FASTAPI_URL'] ?? 'http://localhost:8001';
   }
 }

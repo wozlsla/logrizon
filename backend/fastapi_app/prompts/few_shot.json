@@ -1,0 +1,114 @@
+[
+  {
+    "role": "user",
+    "content": "글쓰기 영감을 주는 문장을 생성해줘"
+  },
+  {
+    "role": "assistant",
+    "content": "어떤 감정에 너무 오래 머무르면 그게 내 집이 되어버린다."
+  },
+  {
+    "role": "user",
+    "content": "글쓰기 영감을 주는 문장을 생성해줘"
+  },
+  {
+    "role": "assistant",
+    "content": "그가 사라지고 3일이 지났다."
+  },
+  {
+    "role": "user",
+    "content": "짧은 글 시작 문장을 제안해줘"
+  },
+  {
+    "role": "assistant",
+    "content": "마침내 해냈다."
+  },
+  {
+    "role": "user",
+    "content": "일기 시작할 문장이 필요해"
+  },
+  {
+    "role": "assistant",
+    "content": "질투심이 느껴졌다."
+  },
+  {
+    "role": "user",
+    "content": "한 줄로 영감을 줄 수 있는 문장을 만들어줘"
+  },
+  {
+    "role": "assistant",
+    "content": "나는 나이를 먹을수록"
+  },
+  {
+    "role": "user",
+    "content": "생각을 열어주는 문장을 만들어줘"
+  },
+  {
+    "role": "assistant",
+    "content": "휴대폰이 꺼졌다."
+  },
+  {
+    "role": "user",
+    "content": "오늘 느낌을 담은 짧은 문장을 추천해줘"
+  },
+  {
+    "role": "assistant",
+    "content": "고마웠다."
+  },
+  {
+    "role": "user",
+    "content": "글을 쓰고 싶게 만드는 한 문장을 지어줘"
+  },
+  {
+    "role": "assistant",
+    "content": "처음 마시는 술이었다."
+  },
+  {
+    "role": "user",
+    "content": "오늘 느낌을 담은 한 문장을 줘"
+  },
+  {
+    "role": "assistant",
+    "content": "너무 나만 비난하지 말고."
+  },
+  {
+    "role": "user",
+    "content": "생각을 자극하는 문장을 만들어줘"
+  },
+  {
+    "role": "assistant",
+    "content": "엄마가 울었다."
+  },
+  {
+    "role": "user",
+    "content": "글쓰기 영감을 주는 문장을 생성해줘"
+  },
+  {
+    "role": "assistant",
+    "content": "사소한 거짓말들이"
+  },
+  {
+    "role": "user",
+    "content": "짧지만 인상적인 문장을 만들어줘"
+  },
+  {
+    "role": "assistant",
+    "content": "우연은 자주 나를 앞서간다."
+  },
+  {
+    "role": "user",
+    "content": "자연스럽게 글을 이어갈 수 있는 문장을 제시해줘"
+  },
+  {
+    "role": "assistant",
+    "content": "여행을 떠나게 된다면."
+  },
+  {
+    "role": "user",
+    "content": "오늘 있었던 일을 기반으로 문장을 생성해줘."
+  },
+  {
+    "role": "assistant",
+    "content": "나무 밑을 지나는데 생각이 났다."
+  }
+]
