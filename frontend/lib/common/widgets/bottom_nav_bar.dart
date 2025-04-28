@@ -13,39 +13,41 @@ class BottomNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final icons = [
-      Icons.radar_outlined,
-      Icons.view_in_ar_sharp,
+      // Icons.radar_outlined,
+      Icons.switch_left,
+      // Icons.view_in_ar_sharp,
+      // Icons.eject,
+      Icons.commit_rounded,
       Icons.share_location_rounded,
       // Icons.control_camera,
       // Icons.explore_outlined
     ];
 
-    return SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.only(bottom: 10),
-        child: Container(
-          margin: EdgeInsets.symmetric(horizontal: 30),
-          padding: EdgeInsets.symmetric(vertical: 14, horizontal: 12),
-          decoration: BoxDecoration(
-            color: Colors.deepPurple[900]?.withValues(alpha: 0.3),
-            borderRadius: BorderRadius.circular(30),
-            // boxShadow: [
-            //   BoxShadow(
-            //     color: Colors.white10,
-            //     blurRadius: 10,
-            //     offset: Offset(0, 2),
-            //   ),
-            // ],
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: List.generate(
-              icons.length,
-              (index) => _NavIcon(
-                icon: icons[index],
-                selected: selectedIndex == index,
-                onTap: () => onTap(index),
-              ),
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 50),
+      child: Container(
+        margin: EdgeInsets.symmetric(horizontal: 40),
+        padding: EdgeInsets.symmetric(vertical: 14, horizontal: 12),
+        decoration: BoxDecoration(
+          color: Color(0xFF209BC4).withValues(alpha: 0.6),
+          borderRadius: BorderRadius.circular(14),
+          border: Border.all(color: Colors.cyanAccent, width: 0.5),
+          // boxShadow: [
+          //   BoxShadow(
+          //     color: Colors.white10,
+          //     blurRadius: 10,
+          //     offset: Offset(0, 2),
+          //   ),
+          // ],
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: List.generate(
+            icons.length,
+            (index) => _NavIcon(
+              icon: icons[index],
+              selected: selectedIndex == index,
+              onTap: () => onTap(index),
             ),
           ),
         ),

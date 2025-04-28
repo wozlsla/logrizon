@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:frontend/common/utils/logger.dart';
 import 'package:frontend/config/env_config.dart';
-import 'package:frontend/route/router.dart';
+import 'package:frontend/core/router/router.dart';
 import 'package:go_router/go_router.dart';
 
 void main() async {
@@ -39,6 +38,10 @@ class Logrizon extends ConsumerWidget {
       theme: ThemeData(
         useMaterial3: true,
         scaffoldBackgroundColor: Colors.white,
+        textSelectionTheme: TextSelectionThemeData(
+          cursorColor: Colors.cyanAccent, // Color(0xFF209BC4)
+          selectionColor: Colors.cyanAccent.withValues(alpha: 0.45),
+        ),
         appBarTheme: AppBarTheme(
           backgroundColor: Colors.transparent,
           // surfaceTintColor: Colors.white, // ?
@@ -49,6 +52,10 @@ class Logrizon extends ConsumerWidget {
         useMaterial3: true,
         brightness: Brightness.dark,
         scaffoldBackgroundColor: Color(0xFF121212),
+        textSelectionTheme: TextSelectionThemeData(
+          cursorColor: Colors.cyanAccent,
+          selectionColor: Colors.cyanAccent.withValues(alpha: 0.45),
+        ),
         appBarTheme: AppBarTheme(backgroundColor: Colors.transparent),
         bottomAppBarTheme: BottomAppBarTheme(color: Colors.grey[900]),
       ),

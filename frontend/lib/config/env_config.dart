@@ -1,7 +1,11 @@
+/* 
+$ flutter run -d chrome --dart-define=ENV=dev --dart-define=API_URL=https://dev.api.com
+$ flutter build web --dart-define=IS_WEB=true --dart-define=ENV=prod --dart-define=API_URL=http://logrizon.im/api/v1 
+*/
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class EnvConfig {
-  /// Checks if the app is running on Web
+  /// 실행 환경 체크 : 웹, 앱(iOS/Android) 판별
   static final bool isWeb = const bool.fromEnvironment(
     'IS_WEB',
     defaultValue: false,
@@ -15,6 +19,7 @@ class EnvConfig {
 
   /// Loads the correct environment file for local development.
   static Future<void> loadEnv() async {
+    /// 모바일/로컬 환경에서만 실행 (.env 읽음)
     if (!isWeb) {
       String envFile = '.env.$env';
       try {
@@ -29,8 +34,18 @@ class EnvConfig {
 
   /// Retrieves the API URL from 'dart-define' or '.env' file.
   static String get apiUrl {
+    /// dart-define으로 전달된 값이 있으면 그 값을 우선적으로 사용
     return const String.fromEnvironment('API_URL', defaultValue: '').isNotEmpty
         ? const String.fromEnvironment('API_URL')
-        : dotenv.env['API_URL'] ?? 'https://api.default.com';
+        : dotenv.env['API_URL'] ?? 'https://localhost:8000';
+  }
+
+  static String get fastApiUrl {
+    return const String.fromEnvironment(
+          'FASTAPI_URL',
+          defaultValue: '',
+        ).isNotEmpty
+        ? const String.fromEnvironment('FASTAPI_URL')
+        : dotenv.env['FASTAPI_URL'] ?? 'http://localhost:8001';
   }
 }

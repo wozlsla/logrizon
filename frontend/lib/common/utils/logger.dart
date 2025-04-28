@@ -5,9 +5,9 @@ final logger = Logger(
   // filter: null,
   // output: null,
   printer: PrettyPrinter(
-    methodCount: 2,
+    methodCount: 4,
     errorMethodCount: 8, // Number of method calls if stacktrace is provided
-    lineLength: 40, // Width of the output
+    lineLength: 20, // Width of the output
     colors: false,
     // dateTimeFormat: DateTimeFormat.onlyTimeAndSinceStart,
   ),

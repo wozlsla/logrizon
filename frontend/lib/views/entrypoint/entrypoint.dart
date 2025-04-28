@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:frontend/providers/tab_provider.dart';
+import 'package:frontend/views/note/note_screen.dart';
 import 'package:go_router/go_router.dart';
 import 'package:frontend/common/widgets/bottom_nav_bar.dart';
 
@@ -20,13 +21,34 @@ class _EntryPointState extends ConsumerState<EntryPoint> {
     super.didChangeDependencies();
 
     // URL로 접근한 경우에도 탭 인덱스를 현재 shell index로 동기화 (초기값 0)
-    ref.read(tabIndexProvider.notifier).state =
-        widget.navigationShell.currentIndex;
+    // ref.read(tabIndexProvider.notifier).state =
+    //     widget.navigationShell.currentIndex;
+
+    // 다음 프레임에서 Provider 상태를 갱신 (dev)
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(tabIndexProvider.notifier).state =
+          widget.navigationShell.currentIndex;
+    });
   }
 
   void onTap(int index) {
     // 이미 현재 선택된 탭을 또 누르면 goBranch()를 호출 X
     if (index == widget.navigationShell.currentIndex) return;
+
+    if (index == 1) {
+      Navigator.of(context).push(
+        PageRouteBuilder(
+          opaque: false,
+          barrierDismissible: true, // (직접 구현 가능)
+          pageBuilder: (_, __, ___) => NoteScreen(),
+          transitionsBuilder: (_, animation, __, child) {
+            return FadeTransition(opacity: animation, child: child);
+          },
+        ),
+      );
+
+      return;
+    }
 
     // 탭 상태 업데이트 (index: icon)
     ref.read(tabIndexProvider.notifier).state = index;
@@ -39,6 +61,8 @@ class _EntryPointState extends ConsumerState<EntryPoint> {
     final selectedIndex = ref.watch(tabIndexProvider);
 
     return Scaffold(
+      extendBody: true,
+      // backgroundColor: Colors.transparent,
       body: widget.navigationShell,
       bottomNavigationBar: BottomNavBar(
         selectedIndex: selectedIndex, // from tabIndexProvider

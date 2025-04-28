@@ -1,0 +1,36 @@
+# Django
+# backend/ 
+python manage.py runserver 0.0.0.0:8000
+
+python manage.py startapp notes
+
+python manage.py createsuperuser
+
+
+
+# FastAPI
+# backend/ 
+poetry add fastapi uvicorn openai python-dotenv
+
+uvicorn fastapi_app.main:app
+
+poetry run uvicorn fastapi_app.main:app
+
+
+
+# Flutter
+
+# API test
+
+poetry add djangorestframework
+- settings.py 에 추가 : third party app
+(urls, views, serializers 설정)
+
+
+poetry add django-cors-headers
+- settings.py 에 추가 : third party app
+    - ALLOWED_HOSTS 설정
+    - CORS 허용
+    - postman test
+
+Flutter test
