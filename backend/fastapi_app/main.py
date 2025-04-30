@@ -10,7 +10,7 @@ app = FastAPI()
 async def generate_sentence_api():
     try:
         sentence = await generate_sentence()
-        print(sentence)
+        # print(sentence)
         # sleep(5)
         return {"sentence": sentence}
     except Exception as e:
