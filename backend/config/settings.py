@@ -39,8 +39,11 @@ THIRD_PARTY_APPS = [
 ]
 
 CUSTOM_APPS = [
+    "common.apps.CommonConfig",
     "users.apps.UsersConfig",
     "notes.apps.NotesConfig",
+    "communities.apps.CommunitiesConfig",
+    "chats.apps.ChatsConfig",
 ]
 
 SYSTEM_APPS = [
@@ -125,9 +128,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = "en-us"  # ko-kr
 
-TIME_ZONE = "UTC"
+TIME_ZONE = "Asia/Seoul"  # UTC
 
 USE_I18N = True
 

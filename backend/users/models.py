@@ -7,6 +7,7 @@ class User(AbstractUser):
     last_name = models.CharField(max_length=150, editable=False)
     name = models.CharField(max_length=150, default="")
     avatar = models.URLField(blank=True, null=True)
+    # name(닉네임) / username(id)??Required / email -> 필수로 수정할 것 (first/last 제거)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.name
