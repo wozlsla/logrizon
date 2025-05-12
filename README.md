@@ -11,7 +11,7 @@
 .
 ├── backend/           # Django
 │   ├── Dockerfile
-│   ├── fastapi_app/   # FastAPI : LLM serviece
+│   ├── fastapi_app/   # FastAPI : LLM serviece & chats
 │   └── ...
 ├── frontend/          # Flutter
 │   ├── build/web      # Flutter Web (deploy)
@@ -68,6 +68,8 @@
 ├── fastapi_app/  # llm
 ...
 ├── users
+├── chats
+├── communities (group)
 └── notes
 ```
 
@@ -76,27 +78,24 @@
 ### Apps
 
 - Users
-- Notes  
-  ...
+- Notes
+- Chats
+- Communities
+- Task  
+   ...  
+  <br/>
   <br/>
 
 ### API
 
-| Endpoint             | 상태    | 설명                           |
-| -------------------- | ------- | ------------------------------ |
-| `/api/v1/users/`     | 개발 중 | 사용자 인증/정보 관련 API 예정 |
-| `/api/v1/notes/`     | 완료    | 글 등록/조회 기능              |
-| `/generate-sentence` | 완료    | GPT 문장 생성 기능             |
+| Endpoint                            | 상태       | 설명                           |
+| ----------------------------------- | ---------- | ------------------------------ |
+| `/api/v1/users/`                    | Todo       | 사용자 인증/정보 관련 API 예정 |
+| `/api/v1/notes/`                    | Done       | 글 등록/조회 기능: GET, POST   |
+| `/api/v1/chats/`                    | Done       | 채팅 기능: DM, GroupChat       |
+| `/api/v1/chats/<chat_id>/messages/` | InProgress |                                |
+| `/api/v1/communities/`              | InProgress |                                |
+| `/generate-sentence`                | Done       | GPT 문장 생성 기능             |
 
 <br/>
-
-```http
-# django (gunicorn)
-GET /api/v1/notes/
-POST /api/v1/notes/
-
-# fastapi (uvicorn)
-POST /generate-sentence
-```
-
 <br/>
