@@ -1,12 +1,14 @@
-from rest_framework.exceptions import NotFound, NotAuthenticated
+from rest_framework.exceptions import NotFound, NotAuthenticated, ParseError
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from django.db import transaction
 
-# from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework import status
 from .models import Chat, Message
 from .serializers import ChatListSerializer, ChatDetailSerializer, MessageSerializer
+from users.models import User
 
 
 class Chats(APIView):
@@ -21,11 +23,15 @@ class Chats(APIView):
         if request.user.is_authenticated:
             serializer = ChatListSerializer(data=request.data)
             if serializer.is_valid():
-                chat = serializer.save(owner=request.user)
-                serializer = ChatListSerializer(chat)
-                return Response(serializer.data)
-            else:
-                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+                try:
+                    with transaction.atomic():
+                        # create / update (db)
+                        chat = serializer.save(owner=request.user)
+                        serializer = ChatListSerializer(chat)
+                        return Response(serializer.data)
+                except Exception as e:
+                    raise ParseError("채팅방 생성 중 오류가 발생했습니다: " + str(e))
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         else:
             raise NotAuthenticated
 
@@ -57,6 +63,8 @@ class ChatDetail(APIView):
 
 
 class Messages(APIView):  # <int:chat_id>/messages
+    permission_classes = [AllowAny]  # 임시로 인증 비활성화
+
     def get_object(self, chat_id):
         try:
             return Chat.objects.get(pk=chat_id)
@@ -71,11 +79,19 @@ class Messages(APIView):  # <int:chat_id>/messages
 
     def post(self, request, chat_id):
         chat = self.get_object(chat_id)
+        print("Received data:", request.data)  # 디버깅을 위해 추가
         serializer = MessageSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save(chat=chat, user=request.user)  # chat을 넘겨줌
+            # serializer.save(chat=chat, user=request.user)  # chat을 넘겨줌
+
+            # 인증 없이 웹소켓 테스트) 임시로 첫 번째 사용자를 사용
+            user = User.objects.first()
+            if not user:
+                raise ParseError("사용자가 없습니다.")
+            saved_message = serializer.save(chat=chat, user=user)
+
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.error, status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class MessageDetail(APIView):  # <int:chat_id>/messages/<int:message_id>

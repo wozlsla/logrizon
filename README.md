@@ -88,14 +88,15 @@
 
 ### API
 
-| Endpoint                            | 상태       | 설명                           |
+| Endpoint                            | Status     | Description                    |
 | ----------------------------------- | ---------- | ------------------------------ |
 | `/api/v1/users/`                    | Todo       | 사용자 인증/정보 관련 API 예정 |
 | `/api/v1/notes/`                    | Done       | 글 등록/조회 기능: GET, POST   |
 | `/api/v1/chats/`                    | Done       | 채팅 기능: DM, GroupChat       |
-| `/api/v1/chats/<chat_id>/messages/` | InProgress |                                |
+| `/api/v1/chats/<chat_id>/messages/` | Done       |                                |
 | `/api/v1/communities/`              | InProgress |                                |
-| `/generate-sentence`                | Done       | GPT 문장 생성 기능             |
+| `/generate-sentence`                | Done       | FastAPI: GPT 문장 생성 기능    |
+| `/ws/chat/{chat_id}`                | Done       | FastAPI: 실시간 채팅 처리      |
 
 <br/>
 <br/>
